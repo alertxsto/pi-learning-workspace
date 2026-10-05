@@ -1,0 +1,59 @@
+name: Portable package
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  posix:
+    name: ${{ matrix.os }} / Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node: ['22.19.0', '24.x']
+    env:
+      # Share npm downloads within this job, not package/user configuration.
+      NPM_CONFIG_CACHE: ${{ runner.temp }}/pi-learning-npm-cache
+      PI_OFFLINE: '1'
+      PI_SKIP_VERSION_CHECK: '1'
+      PI_TELEMETRY: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install POSIX UI prerequisites
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install --yes --no-install-recommends neovim tmux
+          else
+            brew install neovim tmux
+          fi
+      - name: Install package runtime dependencies only
+        run: npm ci --ignore-scripts --legacy-peer-deps
+      - name: Install pinned Pi host outside package
+        shell: bash
+        run: |
+          host_prefix="$RUNNER_TEMP/pi-learning-host"
+          npm install --prefix "$host_prefix" --ignore-scripts --no-audit --no-fund @earendil-works/pi-coding-agent@1.0.2
+          echo "$host_prefix/node_modules/.bin" >> "$GITHUB_PATH"
+      - name: Check source and behavior
+        run: npm run check
+      - name: Discover commands through real Pi RPC
+        run: npm run smoke:pi
+      - name: Verify clean packed installation and runtime
+        run: npm run smoke:package
+      - name: Exercise real Pi UI with Nvim and private PTYs
+        run: npm run smoke:nvim

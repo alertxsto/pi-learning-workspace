@@ -1,0 +1,25 @@
+---
+name: learning-session
+description: Guide a hands-on learning session using Neovim, a real shell, hints, tests and durable progress. Use when starting or continuing a learning topic.
+---
+
+# Interactive learning session
+
+Do not enter this workflow until `../learning-preflight/SKILL.md` and its referenced protocol have established workspace/scope, reused canonical memory facts and completed required prerequisites. A PREFLIGHT label, an unverified checklist, installed client alone or fallback editor is not that evidence. CALL `learning_preflight` before preparing/opening a new UI. If blocked, return to setup rather than writing assessment exercises.
+
+Before preparing content, read `../learning-coach/SKILL.md` and its presentation reference. Apply the interactive learner-attempt/feedback/retry/transfer loop, compact guide writing and resource-evaluation policy; don't equate a longer lesson/checklist with interactivity.
+
+1. Read `AGENTS.md`, relevant learner memory and the injected environment snapshot. Do not repeat intake already answered. Ask only missing goal, starting knowledge, time budget and target environment.
+2. Pick one small outcome with observable criteria. Let the learner approve the plan. A universal 70% pass mark is not a substitute for task-specific criteria.
+3. Use `learning-environment` only for requirements of that outcome. Reuse observed facts; make targeted checks when necessary. If setup is needed, pause lesson preparation and explain choices. Never claim readiness without evidence.
+4. Prepare source-backed material, an exercise and checks for the learner's actual goal. Choose a public workspace-relative exercise path and file format appropriate to this lesson; do not use a fixed filename/extension or canned starter per subject. Keep reference solutions separate; don't leak answers into the starter. Ask before replacing existing work.
+5. CALL the `learning_workspace` tool to OPEN the interactive UI, supplying a free-form topic, phase, material, task lines, package/setup notes, explicit requirements (key/label, optional executable+argv probe), and exercise (public relative path, optional starter). No subject-specific defaults exist; tutor prepares the content from the learner's goal and evidence. Do not merely give a chat plan or tell the learner to launch tmux. The UI has editor/Nvim upper-left, private real PTY shell lower-left, and packages/material/tasks on the right. If Nvim is not observed ready, an explicitly labeled editable fallback is used until setup succeeds. `/kelas <topic> [minutes]` or `/preflight <topic> [minutes]` opens saved lesson data manually; missing topic/duration/file are asked, never fabricated.
+6. Read authoritative minutes from injected `learning_session`. The learner's chosen number of minutes MUST be preserved, never a fixed session template. Do not pass a conflicting minutes value to the tool. If duration is unknown, ask once; there is no silent default. Focus starts only when the learner selects L in the guide or starts the configured timer. The timer is guidance, not an exam deadline.
+7. Explain one chunk, then wait for the learner's attempt inside the persistent workspace. The TUTOR input accepts questions, predictions and explanations. Inline questions/hints receive the authored lesson, active step and bounded public history; do not require exit/reopen for normal help.
+8. `Cek draft publik` / Ctrl+G explicitly shares the active public exercise buffer snapshot without disk save or editor/shell teardown. Approved public runner/selection bridge events are consumed while the classroom is open. Check only evidence actually present: code alone is not execution, and arbitrary private shell activity is not visible. Distinguish syntax/environment problems from conceptual misunderstandings. Snapshot provenance and stale-response handling matter.
+9. Hints: ask a diagnostic question → point at a relevant concept → give a partial example → full solution only if requested. Don't overwrite the work. Say when an answer was assisted.
+10. Give a new, comparable task without hints to test transfer. Don't infer independent ability from assisted completion.
+11. Persist exercise/results/assistance, specific misconceptions, next step and review recommendation. Update `progress.md` and relevant memory; show a short summary for correction. Pause the timer on exit.
+12. Create/update a wiki page only when it provides reusable value. Cite sources and changing version/date facts. The learner's own explanation must come from their actual response.
+
+Setup, editing, tests and local timer must not consume model calls per keystroke. Use the inline question/hint/public-draft actions while inside the classroom; `/bridge send` remains for external/manual bridge use. Tool-free inline tutor cannot author/commit a new lesson or run/search tools: those still require the explicit main-agent handoff, without promising in-place phase transition yet. Maintain a single source of truth for each state file.

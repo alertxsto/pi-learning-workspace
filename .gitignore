@@ -1,0 +1,17 @@
+node_modules/
+__pycache__/
+*.pyc
+.learning/
+.learning-source
+.pi/
+.agent/
+*.log
+.env
+.env.*
+!.env.example
+
+# Internal planning documents stay local.
+/plan.md
+/docs/audit-learning-ux-v05.md
+/docs/superpowers/
+/.superpowers/

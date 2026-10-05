@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "scope": "replace-with-actual-execution-scope",
+  "observations": {
+    "os": {
+      "status": "unverified",
+      "evidence": "No observation imported; do not scan automatically",
+      "source": "portable-template",
+      "observedAt": null
+    }
+  }
+}

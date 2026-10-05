@@ -1,0 +1,75 @@
+{
+  "name": "pi-learning-workspace",
+  "version": "0.7.0",
+  "private": true,
+  "type": "module",
+  "description": "Memory-first interactive learning workspace for Pi, Neovim and a real shell",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alertxsto/pi-learning-workspace.git"
+  },
+  "homepage": "https://github.com/alertxsto/pi-learning-workspace#readme",
+  "bugs": {
+    "url": "https://github.com/alertxsto/pi-learning-workspace/issues"
+  },
+  "keywords": [
+    "pi-package",
+    "learning",
+    "tutor",
+    "neovim"
+  ],
+  "bin": {
+    "pi-learning": "./scripts/learn.mjs"
+  },
+  "files": [
+    "extensions/",
+    "src/",
+    "config/",
+    "skills/",
+    "resources/",
+    "nvim/",
+    "docs/inline-tutor-v06.md",
+    "scripts/learn.mjs",
+    "scripts/run.mjs",
+    "scripts/event.mjs",
+    "scripts/pty-host.py",
+    "AGENTS.md",
+    "LICENSE",
+    "ATTRIBUTION.md",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "smoke:package": "node scripts/smoke-package.mjs",
+    "smoke:pi": "node scripts/smoke-pi.mjs",
+    "smoke:ui": "node scripts/smoke-ui.mjs",
+    "smoke:nvim": "node scripts/smoke-ui.mjs --nvim",
+    "smoke:tutor": "node scripts/smoke-ui.mjs --nvim --tutor",
+    "check": "node --check src/core.mjs && node --check src/session.mjs && node --check src/runtime.mjs && node --check src/guide.mjs && node --check src/tutor.mjs && node --check src/pty.mjs && node --check scripts/learn.mjs && node --check scripts/run.mjs && node --check scripts/event.mjs && npm test"
+  },
+  "engines": {
+    "node": ">=22.19"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*",
+    "@earendil-works/pi-ai": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": { "optional": true },
+    "@earendil-works/pi-tui": { "optional": true },
+    "@earendil-works/pi-ai": { "optional": true }
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/learning.ts"
+    ],
+    "skills": [
+      "./skills"
+    ]
+  },
+  "dependencies": {
+    "@xterm/headless": "6.0.0"
+  }
+}

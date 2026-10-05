@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "kind": "nvim",
+    "key": "nvim",
+    "label": "Neovim",
+    "executable": "nvim",
+    "args": [],
+    "probe": { "executable": "nvim", "args": ["--version"] }
+  },
+  "shell": { "executable": null, "fallbackExecutable": "/bin/sh", "args": ["-i"] },
+  "transport": { "executable": "python3" },
+  "probes": {
+    "nvim": { "executable": "nvim", "args": ["--version"] }
+  },
+  "navigation": { "editor": "alt+1", "shell": "alt+2", "guide": "alt+3", "next": "ctrl+t", "previous": "alt+left" },
+  "layout": { "guideFraction": 0.4, "editorFraction": 0.48 }
+}
