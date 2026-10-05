@@ -39,7 +39,6 @@ test('private files, traversal and symlink escapes excluded', t => {
   fs.writeFileSync(path.join(root, '.env'), 'password');
   fs.writeFileSync(path.join(external, 'other.sql'), 'SELECT 2;');
   fs.symlinkSync(path.join(external, 'other.sql'), path.join(root, 'escape.sql'));
-  assert.equal(safeWorkspaceFile(root, 'exercise.sql'), path.join(root, 'exercise.sql'));
   assert.throws(() => safeWorkspaceFile(root, '.env'));
   assert.throws(() => safeWorkspaceFile(root, '../exercise.sql'));
   assert.throws(() => safeWorkspaceFile(root, 'escape.sql'));

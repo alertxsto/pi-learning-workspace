@@ -50,7 +50,8 @@ const waitFor = async predicate => {
 try {
   await waitFor(() => terminal.ready);
   terminal.input("printf '%s%s\\n' 'ARTIFACT_' 'PTY_OK'\\n");
-  await waitFor(() => terminal.lines().some(line => line.replace(/\\x1b\\[[0-9;]*m/g, '').trim() === 'ARTIFACT_PTY_OK'));
+  // The split marker cannot match command echo; shell prompts need not end on their own line.
+  await waitFor(() => terminal.lines().some(line => line.includes('ARTIFACT_PTY_OK')));
   console.log('Installed artifact runtime and Python/private PTY OK');
 } finally { terminal.close(); }
 `;
