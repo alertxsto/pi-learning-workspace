@@ -19,13 +19,15 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         node: ['22.19.0', '24.x']
     env:
-      # Share npm downloads within this job, not package/user configuration.
-      NPM_CONFIG_CACHE: ${{ runner.temp }}/pi-learning-npm-cache
       PI_OFFLINE: '1'
       PI_SKIP_VERSION_CHECK: '1'
       PI_TELEMETRY: '0'
     steps:
       - uses: actions/checkout@v4
+      - name: Configure isolated npm cache
+        shell: bash
+        # runner context is unavailable in job-level env; export after job starts.
+        run: echo "NPM_CONFIG_CACHE=$RUNNER_TEMP/pi-learning-npm-cache" >> "$GITHUB_ENV"
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
