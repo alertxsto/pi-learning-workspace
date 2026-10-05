@@ -52,14 +52,15 @@ export async function inspectCommands(executable, args, { cwd, env, packageRoot 
   const records = stdout.split('\n').filter(line => line.trim()).map(line => JSON.parse(line));
   const response = records.find(record => record.id === 'learning-smoke' && record.type === 'response');
   if (!response?.success) throw new Error('get_commands did not succeed');
+  const artifactRoot = packageRoot && fs.realpathSync(packageRoot);
   for (const name of learningCommands) {
     const command = response.data.commands.find(command => command.name === name);
     if (!command) throw new Error(`Missing command: ${name}`);
     const source = name.startsWith('skill:') ? 'skill' : 'extension';
     if (command.source !== source) throw new Error(`Wrong command source for ${name}: ${command.source}`);
-    if (packageRoot) {
+    if (artifactRoot) {
       const resource = command.sourceInfo?.path;
-      const relative = resource && path.relative(packageRoot, resource);
+      const relative = resource && path.relative(artifactRoot, fs.realpathSync(resource));
       if (!resource || relative === '..' || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) throw new Error(`${name} was not loaded from the installed artifact: ${resource}`);
     }
   }

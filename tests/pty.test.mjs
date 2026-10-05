@@ -22,7 +22,7 @@ const hasLine = (tty, text) => screen(tty).split('\n').some(line => line.trim() 
 
 test('real PTY: child stdin and stdout are TTY; resize reaches stty', { skip: process.platform === 'win32' }, async t => {
   const tty = terminal(t);
-  await waitFor(() => tty.ready, 'PTY ready');
+  await waitFor(() => screen(tty).includes('TEST>'), 'interactive shell ready');
   tty.resize(100, 18);
   tty.input('test -t 0 && test -t 1 && printf "REAL_TTY_OK\\n"; stty size\r');
   await waitFor(() => screen(tty).includes('18 100'), 'stty resize');
